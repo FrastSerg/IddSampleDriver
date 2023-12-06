@@ -348,16 +348,18 @@ static const ::DISPLAYCONFIG_VIDEO_SIGNAL_INFO knownMonitorModes[]  {
     DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE
   },
   // 1920 x 1280 @ 60Hz
-  {
-      40_MHz,                                        // pixel clock rate [Hz]
-    { 40_MHz, 800 + 256 },                           // fractional horizontal refresh rate [Hz]
-    { 40_MHz, (800 + 256) * (600 + 28) },            // fractional vertical refresh rate [Hz]
-    { 1920, 1280 },                                  // (horizontal, vertical) active pixel resolution
-    { 1920 + 256, 1280 + 28 },                       // (horizontal, vertical) total pixel resolution
-    { { 255, 0 }},                                   // video standard and vsync divider
-    DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE
-  },
+  //{
+  //    40_MHz,                                        // pixel clock rate [Hz]
+  //  { 40_MHz, 800 + 256 },                           // fractional horizontal refresh rate [Hz]
+  //  { 40_MHz, (800 + 256) * (600 + 28) },            // fractional vertical refresh rate [Hz]
+  //  { 1920, 1280 },                                  // (horizontal, vertical) active pixel resolution
+  //  { 1920 + 256, 1280 + 28 },                       // (horizontal, vertical) total pixel resolution
+  //  { { 255, 0 }},                                   // video standard and vsync divider
+  //  DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE
+  //},
+  dispinfo(1920, 1080),
   dispinfo(1920, 1200),
+  dispinfo(1920, 1280),
   dispinfo(1920, 1440),
   dispinfo(2560, 1440),
   dispinfo(2560, 1600),
@@ -638,7 +640,7 @@ static ::NTSTATUS MonitorGetDefaultModes( ::IDDCX_MONITOR MonitorObject,
 /// <summary>
 /// Creates a target mode from the fundamental mode attributes.
 /// </summary>
-constexpr ::IDDCX_TARGET_MODE CreateTargetMode( ::UINT Width, ::UINT Height, ::UINT VSync ) {
+static constexpr ::IDDCX_TARGET_MODE CreateTargetMode( ::UINT Width, ::UINT Height, ::UINT VSync ) {
   ::IDDCX_TARGET_MODE mode{ 0, };
   mode.Size = sizeof(mode);
   TVSI.totalSize.cx                          = TVSI.activeSize.cx = Width;
